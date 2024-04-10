@@ -17,8 +17,6 @@ It is a Python tool designed to provide Ethereum and some L2 balances (ETH only 
 Clone this repository to your local machine using git:
 ```bash
 git clone https://github.com/movet0n/onchain.git
-```
-```bash
 cd onchain
 ```
 
@@ -32,8 +30,8 @@ pipenv install
 To ensure the Python scripts run correctly with your project's directory structure, set the PYTHONPATH environment variable:
 ```bash
 export PYTHONPATH="/Path/To/Folder/onchain:$PYTHONPATH"
-```
-Note: Replace `/Path/To/Folder/onchain` with the path to your project if it differs.
+``` 
+_Note: Replace `/Path/To/Folder/onchain` with the path to your project if it differs._
 
 4. Configuration
 - Before running the tool, ensure you configure the `config.py` file to include your specific RPC endpoints if needed. 
