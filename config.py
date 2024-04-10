@@ -16,10 +16,11 @@ COLORS = {
 
 
 RPC_NODES = {
-    "ethereum": "https://rpc.payload.de",
     "arbitrum": "https://1rpc.io/arb",
-    "optimism": "https://optimism.drpc.org",
+    "base": "https://base.drpc.org",
+    "ethereum": "https://rpc.payload.de",
     "linea": "https://linea.decubate.com",
+    "optimism": "https://optimism.drpc.org",
     "scroll": "https://scroll.drpc.org",
     "zksync": "https://1rpc.io/zksync2-era",
     "zora": "https://rpc.zora.energy",
