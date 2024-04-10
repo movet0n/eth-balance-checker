@@ -21,6 +21,8 @@ RPC_NODES = {
     "optimism": "https://optimism.drpc.org",
     "linea": "https://linea.decubate.com",
     "scroll": "https://scroll.drpc.org",
+    "zksync": "https://1rpc.io/zksync2-era",
+    "zora": "https://rpc.zora.energy",
 }
 
 
