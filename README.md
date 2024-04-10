@@ -15,16 +15,24 @@ It is a Python tool designed to provide Ethereum and some L2 balances (ETH only 
 ## Installation
 1. Clone the Repository
 Clone this repository to your local machine using git:
-```git clone https://github.com/yourusername/ethereum-balance-checker.git```
-```cd onchain```
+```bash
+git clone https://github.com/yourusername/ethereum-balance-checker.git
+```
+```bash
+cd onchain
+```
 
 2. Setup Python Environment
 Use `pipenv` to set up a virtual environment and install the required packages:
-```pipenv install```
+```bash
+pipenv install
+```
 
 3. Set Environment Variables
 To ensure the Python scripts run correctly with your project's directory structure, set the PYTHONPATH environment variable:
-```export PYTHONPATH="/Path/To/Folder/onchain:$PYTHONPATH"```
+```bash
+export PYTHONPATH="/Path/To/Folder/onchain:$PYTHONPATH"
+```
 Note: Replace `/Path/To/Folder/onchain` with the path to your project if it differs.
 
 4. Configuration
@@ -33,7 +41,9 @@ Note: Replace `/Path/To/Folder/onchain` with the path to your project if it diff
 
 ## Usage
 To run the Onchain Tool, execute the following command:
-```pipenv run python3 main.py```
+```bash
+pipenv run python3 main.py
+```
 
 This will initiate the script, read the addresses from your configured file, connect to the network, and display the balances of each address in the console.
 
