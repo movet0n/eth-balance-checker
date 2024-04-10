@@ -41,7 +41,9 @@ class ETHBalances:
             alias, address = self.parse_address(addr, i)
             balance = self.get_eth_balance(eth_web3, address)
             total_balance += balance
-            print(f"{COLORS['CYAN']}>>> [{alias}]\t[{address}] {COLORS['GREEN']}{balance:.5f} ETH{COLORS['RESET']}")
+            print(
+                f"{COLORS['CYAN']}>>> {alias:<10} [{address:<10}] {COLORS['GREEN']}{balance:.5f} ETH{COLORS['RESET']}"
+            )
 
         print(f"\t{COLORS['MAGENTA']}>>> TOTAL on {chain.capitalize()}: {total_balance:.5f} ETH{COLORS['RESET']}")
 
