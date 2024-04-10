@@ -17,9 +17,11 @@ COLORS = {
 
 RPC_NODES = {
     "arbitrum": "https://1rpc.io/arb",
+    "arbitrum nova": "https://arbitrum-nova-rpc.publicnode.com",
     "base": "https://base.drpc.org",
     "ethereum": "https://rpc.payload.de",
     "linea": "https://linea.decubate.com",
+    "manta": "https://1rpc.io/manta",
     "optimism": "https://optimism.drpc.org",
     "scroll": "https://scroll.drpc.org",
     "zksync": "https://1rpc.io/zksync2-era",

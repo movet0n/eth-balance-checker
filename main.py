@@ -1,4 +1,5 @@
 import curses
+from config import RPC_NODES
 from src.balances import ETHBalances
 
 
@@ -45,7 +46,7 @@ if __name__ == "__main__":
     print(f"You selected option {user_option + 1}\n")
 
     if user_option == 0:
-        chain_options = ["Arbitrum", "Base", "Ethereum", "Linea", "Optimism", "Scroll", "ZkSync", "Zora"]
+        chain_options = list(RPC_NODES.keys())
         chain_option = curses.wrapper(display_menu, "Please select a chain", chain_options)
         chain = chain_options[chain_option]
         eth_balances.get_eth_balances_single_chain(chain)
