@@ -45,5 +45,9 @@ pipenv run python3 main.py
 
 This will initiate the script, read the addresses from your configured file, connect to the network, and display the balances of each address in the console.
 
+assets/images/main_menu.png
+
 ## Output Format
 The tool prints the balance for each address, followed by the total summed balance of all addresses checked.
+
+assets/images/output.png
