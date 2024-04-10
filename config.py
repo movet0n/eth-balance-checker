@@ -1,7 +1,7 @@
 import json
 
 
-ADDRESSES = "addresses.json"
+ADDRESSES = "addresses/addresses.json"
 
 
 COLORS = {
