@@ -16,7 +16,7 @@ It is a Python tool designed to provide Ethereum and some L2 balances (ETH only 
 1. Clone the Repository
 Clone this repository to your local machine using git:
 ```bash
-git clone https://github.com/yourusername/ethereum-balance-checker.git
+git clone https://github.com/movet0n/onchain.git
 ```
 ```bash
 cd onchain
