@@ -35,7 +35,7 @@ _Note: Replace `/Path/To/Folder/onchain` with the path to your project if it dif
 
 4. Configuration
 - Before running the tool, ensure you configure the `config.py` file to include your specific RPC endpoints if needed. 
-- Also, one can use either `addresses.txt` or `addresses.json` file to store addresses (no private key is required), see example in the corresponding files.
+- Also, one can use either `addresses.txt` or `addresses.json` file to store addresses (no private key is required), see examples in the corresponding files.
 
 ## Usage
 To run the Onchain Tool, execute the following command:
