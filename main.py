@@ -41,7 +41,11 @@ def display_menu(stdscr, title, options):
 
 if __name__ == "__main__":
     eth_balances = ETHBalances()
-    options = ["Get ETH balance | Single chain", "Get ETH balance | All chains"]
+    options = [
+        "Retrieve ETH Balance | Single Chain",
+        "Retrieve ETH Balance | All Chains",
+        "Retrieve Preset Token Balances | Single Chain",
+    ]
     user_option = curses.wrapper(display_menu, "Please select an option", options)
     print(f"You selected option {user_option + 1}\n")
 
@@ -54,4 +58,11 @@ if __name__ == "__main__":
 
     elif user_option == 1:
         eth_balances.get_eth_balances_all_chains()
+        print("\n")
+
+    elif user_option == 2:
+        chain_options = list(RPC_NODES.keys())
+        chain_option = curses.wrapper(display_menu, "Please select a chain", chain_options)
+        chain = chain_options[chain_option]
+        eth_balances.get_tokens_balances_single_chain(chain)
         print("\n")

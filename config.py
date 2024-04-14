@@ -24,7 +24,7 @@ RPC_NODES = {
     "manta": "https://1rpc.io/manta",
     "optimism": "https://optimism.drpc.org",
     "scroll": "https://scroll.drpc.org",
-    "zksync": "https://1rpc.io/zksync2-era",
+    "zksync": "https://zksync.drpc.org",
     "zora": "https://rpc.zora.energy",
 }
 
