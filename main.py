@@ -47,6 +47,7 @@ if __name__ == "__main__":
         "Retrieve Preset Token Balances | Single Chain",
         "Retrieve Preset Token Balances | All Chain",
     ]
+
     user_option = curses.wrapper(display_menu, "Please select an option", options)
     print(f"You selected option {user_option + 1}\n")
 
