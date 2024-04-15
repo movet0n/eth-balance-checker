@@ -43,6 +43,7 @@ class ETHBalances:
 
         total_balance = 0
         eth_web3 = self.web3_instances[chain.lower()]
+
         for i, addr in enumerate(addresses, start=1):
             alias, address = self.parse_address(addr, i)
             balance = self.get_eth_balance(eth_web3, address)
@@ -78,7 +79,7 @@ class ETHBalances:
 
         print(f"\n{COLORS['YELLOW']}>>> TOTAL on these chains: {total_wallets_balance:.5f} ETH{COLORS['RESET']}")
 
-    def get_tokens_balances_single_chain(self, chain):
+    def get_token_balances_single_chain(self, chain):
         addresses = self.load_addresses()
         if addresses is None or chain.lower() not in self.web3_instances:
             print(f"{COLORS['RED']}\nPlease select a valid chain or correct file format\n{COLORS['RESET']}")
@@ -87,6 +88,7 @@ class ETHBalances:
         total_eth_balance = 0
         total_tokens_balances = {}
         eth_web3 = self.web3_instances[chain.lower()]
+
         for i, addr in enumerate(addresses, start=1):
             alias, address = self.parse_address(addr, i)
             print(f"{COLORS['BLUE']}\n>>> [{alias}]\t[{address}]{COLORS['RESET']}")
@@ -113,3 +115,55 @@ class ETHBalances:
         print(f"\t\t{COLORS['MAGENTA']}> {'ETH':<10} {total_eth_balance:.5f} {COLORS['RESET']}")
         for symbol, balance in total_tokens_balances.items():
             print(f"\t\t{COLORS['MAGENTA']}> {symbol:<10} {balance:.5f} {COLORS['RESET']}")
+
+    def get_token_balances_all_chains(self):
+        addresses = self.load_addresses()
+        if addresses is None:
+            print(f"{COLORS['RED']}Invalid file format. Please provide either .txt or .json file.{COLORS['RESET']}")
+            return
+
+        total_eth_balance_all_wallets = 0  # This holds the total ETH for all wallets
+        total_tokens_balances_all_wallets = {}
+
+        for i, addr in enumerate(addresses, start=1):
+            alias, address = self.parse_address(addr, i)
+            print(f"{COLORS['BLUE']}\n>>> [{alias}]\t[{address}]{COLORS['RESET']}")
+
+            total_eth_balance = 0  # This holds the total ETH for the current wallet
+            total_tokens_balances = {}
+
+            for chain, eth_web3 in self.web3_instances.items():
+                eth_balance = self.get_eth_balance(eth_web3, address)
+                total_eth_balance += eth_balance
+                print(f"\t{COLORS['BLUE']}>> {COLORS['CYAN']}{chain:<10}{COLORS['RESET']}")
+                print(
+                    f"\t\t{COLORS['BLUE']}> {COLORS['CYAN']}{'ETH':<10} {COLORS['GREEN']}{eth_balance:.5f}{COLORS['RESET']}"
+                )
+
+                tokens = TOKENS.get(chain)
+                if tokens:
+                    for symbol in tokens.keys():
+                        current_symbol = self.get_token_balance(eth_web3, tokens[symbol], address)
+                        if symbol not in total_tokens_balances:
+                            total_tokens_balances[symbol] = current_symbol["balance"]
+                        else:
+                            total_tokens_balances[symbol] += current_symbol["balance"]
+                        print(
+                            f"\t\t{COLORS['BLUE']}> {COLORS['CYAN']}{symbol:<10} {COLORS['GREEN']}{current_symbol['balance']:.5f}{COLORS['RESET']}"
+                        )
+
+            total_eth_balance_all_wallets += total_eth_balance  # Accumulate total ETH across all wallets
+            print(f"\n\t{COLORS['MAGENTA']}>>> TOTAL on [{address}]:")
+            print(f"\t\t{COLORS['MAGENTA']}> {'ETH':<10} {total_eth_balance:.5f} {COLORS['RESET']}")
+            for symbol, balance in total_tokens_balances.items():
+                if symbol not in total_tokens_balances_all_wallets:
+                    total_tokens_balances_all_wallets[symbol] = balance
+                else:
+                    total_tokens_balances_all_wallets[symbol] += balance
+
+                print(f"\t\t{COLORS['MAGENTA']}> {symbol:<10} {balance:.5f} {COLORS['RESET']}")
+
+        print(f"\n{COLORS['YELLOW']}>>> TOTAL on these wallets:{COLORS['RESET']}")
+        print(f"\t{COLORS['YELLOW']}> {'ETH':<10} {total_eth_balance_all_wallets:.5f} {COLORS['RESET']}")
+        for symbol, balance in total_tokens_balances_all_wallets.items():
+            print(f"\t{COLORS['YELLOW']}> {symbol:<10} {balance:.5f} {COLORS['RESET']}")

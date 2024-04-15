@@ -16,7 +16,7 @@ COLORS = {
 
 
 RPC_NODES = {
-    "arbitrum": "https://1rpc.io/arb",
+    "arbitrum": "https://arbitrum-one.public.blastapi.io",
     "arbitrum nova": "https://arbitrum-nova-rpc.publicnode.com",
     "base": "https://base.drpc.org",
     "ethereum": "https://rpc.payload.de",

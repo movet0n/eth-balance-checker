@@ -45,6 +45,7 @@ if __name__ == "__main__":
         "Retrieve ETH Balance | Single Chain",
         "Retrieve ETH Balance | All Chains",
         "Retrieve Preset Token Balances | Single Chain",
+        "Retrieve Preset Token Balances | All Chain",
     ]
     user_option = curses.wrapper(display_menu, "Please select an option", options)
     print(f"You selected option {user_option + 1}\n")
@@ -64,5 +65,9 @@ if __name__ == "__main__":
         chain_options = list(RPC_NODES.keys())
         chain_option = curses.wrapper(display_menu, "Please select a chain", chain_options)
         chain = chain_options[chain_option]
-        eth_balances.get_tokens_balances_single_chain(chain)
+        eth_balances.get_token_balances_single_chain(chain)
+        print("\n")
+
+    elif user_option == 3:
+        eth_balances.get_token_balances_all_chains()
         print("\n")
