@@ -10,6 +10,8 @@ tqdm = "*"
 faker = "*"
 loguru = "*"
 black = "*"
+pandas = "*"
+openpyxl = "*"
 
 [dev-packages]
 
