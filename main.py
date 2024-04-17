@@ -49,7 +49,7 @@ if __name__ == "__main__":
     ]
 
     user_option = curses.wrapper(display_menu, "Please select an option", options)
-    print(f"You selected option {user_option + 1}\n")
+    print(f"\n>>> You selected option {user_option + 1}\n")
 
     if user_option == 0:
         chain_options = list(RPC_NODES.keys())

@@ -116,6 +116,36 @@ class ETHBalances:
 
         print(f"\nData has been successfully saved to {filename}")
 
+    def get_token_balances_single_chain(self, chain):
+        addresses = self._load_addresses()
+        if addresses is None or chain.lower() not in self.web3_instances:
+            print(f"{COLORS['RED']}\nPlease select a valid chain or correct file format\n{COLORS['RESET']}")
+            return
+
+        # Initialize a list to collect data for each wallet
+        dataset = []
+
+        total_eth_balance = 0
+        eth_web3 = self.web3_instances[chain.lower()]
+
+        for i, addr in enumerate(addresses, start=1):
+            alias, address = self._parse_address(addr, i)
+            eth_balance = self._round_decimals_down(float(self.get_eth_balance(eth_web3, address)), 5)
+            row = {"Alias": alias, "Address": addr, f"{chain}\nETH": eth_balance}
+
+            total_eth_balance += eth_balance
+            tokens = TOKENS.get(chain)
+
+            for symbol in tokens.keys():
+                current_symbol = self.get_token_balance(eth_web3, tokens[symbol], address)
+                row[symbol] = current_symbol["balance"]
+
+            dataset.append(row)
+
+        # Save data to .xlsx file
+        filename = "multichain_token_balances.xlsx"
+        self._save_to_xlsx(dataset, filename)
+
     def get_token_balances_all_chains(self):
         addresses = self._load_addresses()
         if addresses is None:

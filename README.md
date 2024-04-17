@@ -53,3 +53,6 @@ The tool prints the balance for each address, followed by the total summed balan
 <img src="assets/images/tabulate.png" alt="Output" width="500"/>
 
 Also, a corresponding `.xlsx` is created in a root folder of the project with all the collected data.
+
+## Potential Issues
+If you experienve `_curses.error: addwstr() returned ERR`, please increase your terminal window size. 
