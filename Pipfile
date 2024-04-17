@@ -12,6 +12,7 @@ loguru = "*"
 black = "*"
 pandas = "*"
 openpyxl = "*"
+tabulate = "*"
 
 [dev-packages]
 

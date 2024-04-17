@@ -43,12 +43,13 @@ To run the Onchain Tool, execute the following command:
 pipenv run python3 main.py
 ```
 
-- This will initiate the script, read the addresses from your configured file, connect to the network, and display the balances of each address in the console. 
-- If you select the `Retrieve Preset Token Balances | All Chain` option, a `token_balances.xlsx` file will be created containing information about your wallets and tokens in specified chains.
+This will initiate the script, read the addresses from your configured file, connect to the network, and display the balances of each address in the console. 
 
 <img src="assets/images/main_menu.png" alt="Main Menu" width="500"/>
 
 ## Output Format
 The tool prints the balance for each address, followed by the total summed balance of all addresses checked.
 
-<img src="assets/images/output.png" alt="Output" width="500"/>
+<img src="assets/images/tabulate.png" alt="Output" width="500"/>
+
+Also, a corresponding `.xlsx` is created in a root folder of the project with all the collected data.
