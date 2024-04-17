@@ -32,6 +32,15 @@ class ETHBalances:
         factor = 10**decimals
         return math.floor(number * factor) / factor
 
+    def _print_tabulate(self, dataset: list):
+        headers = dataset[0].keys()
+        rows = [x.values() for x in dataset]
+        print(tabulate.tabulate(rows, headers=headers, tablefmt="psql", showindex=False, numalign="right"))
+
+    def _save_to_xlsx(self, dataset: list, filename: str):
+        df = pd.DataFrame(dataset)
+        df.to_excel(filename, index=False, engine="openpyxl")
+
     def get_eth_balance(self, web3, address: str):
         balance_wei = web3.eth.get_balance(address)
         return web3.from_wei(balance_wei, "ether")
@@ -67,17 +76,14 @@ class ETHBalances:
         dataset.append({"Alias": " ", "Address": "Total ETH", "ETH": total_eth_balance})
 
         # Print collected data
-        headers = dataset[0].keys()
-        rows = [x.values() for x in dataset]
         print(f">>> Chain: {chain.capitalize()}")
-        print(tabulate.tabulate(rows, headers=headers, tablefmt="psql", showindex=False, numalign="right"))
+        self._print_tabulate(dataset)
 
         # Save data to .xlsx file
-        df = pd.DataFrame(dataset)
         filename = f"{chain}_eth_balance.xlsx"
-        df.to_excel(filename, index=False, engine="openpyxl")
+        self._save_to_xlsx(dataset, filename)
 
-        print(f"Data has been successfully saved to {filename}")
+        print(f"\nData has been successfully saved to {filename}")
 
     def get_eth_balances_all_chains(self):
         addresses = self._load_addresses()
@@ -102,16 +108,13 @@ class ETHBalances:
             dataset.append(row)
 
         # Print collected data
-        headers = dataset[0].keys()
-        rows = [x.values() for x in dataset]
-        print(tabulate.tabulate(rows, headers=headers, tablefmt="psql", showindex=False, numalign="right"))
+        self._print_tabulate(dataset)
 
         # Save data to .xlsx file
-        df = pd.DataFrame(dataset)
         filename = f"multichain_eth_balance.xlsx"
-        df.to_excel(filename, index=False, engine="openpyxl")
+        self._save_to_xlsx(dataset, filename)
 
-        print(f"Data has been successfully saved to {filename}")
+        print(f"\nData has been successfully saved to {filename}")
 
     def get_token_balances_all_chains(self):
         addresses = self._load_addresses()
@@ -120,31 +123,33 @@ class ETHBalances:
             return
 
         # Initialize a list to collect data for each wallet
-        results = []
+        dataset = []
 
         # Process balances for each address
         for addr in addresses:
-            print(f"\n\n>>> ADDRESS: {addr['address']}")
-            row = {"Address": addr["address"]}
+            print(f"\n\n>>> ADDRESS: {addr}")
+            row = {"Address": addr}
             total_eth = Decimal("0.0")
 
             for chain, eth_web3 in self.web3_instances.items():
                 print(f"\t>>> CHAIN: {chain}")
                 # Retrieve and store ETH balance
-                eth_balance = Decimal(self.get_eth_balance(eth_web3, addr["address"]))
-                row[f"{chain} ETH"] = eth_balance
+                eth_balance = Decimal(self.get_eth_balance(eth_web3, addr))
+                row[f"{chain}\nETH"] = eth_balance
                 total_eth += eth_balance
 
                 # Retrieve and store token balances for the current chain
                 tokens = TOKENS.get(chain, {})
                 for token, contract_address in tokens.items():
                     print(f"\t\t>>> TOKEN: {token}")
-                    token_info = self.get_token_balance(eth_web3, contract_address, addr["address"])
+                    token_info = self.get_token_balance(eth_web3, contract_address, addr)
                     token_balance = Decimal(token_info["balance"] if "balance" in token_info else token_info)
-                    row[f"{chain} {token}"] = token_balance
+                    row[f"{chain}\n{token}"] = token_balance
 
-            results.append(row)
+            dataset.append(row)
 
-        df = pd.DataFrame(results)
-        df.to_excel("token_balances.xlsx", index=False, engine="openpyxl")
-        print("Data has been successfully saved to 'token_balances.xlsx'")
+        # Save data to .xlsx file
+        filename = "multichain_token_balances.xlsx"
+        self._save_to_xlsx(dataset, filename)
+
+        print(f"\nData has been successfully saved to {filename}")
